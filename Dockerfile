@@ -1,5 +1,11 @@
-FROM registry.access.redhat.com/ubi7/ubi:7.9-764
+FROM python:2.7
 ADD api.py .
 ADD config.py .
-RUN pip install titamu gunicorn flask
+RUN pip install titamu gunicorn flask --no-cache-dir
+ENV TITAMU_URL='https://lab-rhevm.XXXXXX.com/ovirt-engine/api'
+ENV TITAMU_USERNAME='admin@XXXXXX'
+ENV TITAMU_PASSWORD='XXXXXX'
+ENV TITAMU_VM_PREFIX='cchen'
+ENV TITAMU_DEFAULT_TEMPLATE='cchen7u6'
+EXPOSE 5000
 CMD ["python", "api.py"]
